@@ -1,0 +1,43 @@
+version: "3.7"
+services:
+  movie-api:
+    build:
+      context: "."
+      dockerfile: Dockerfile
+    container_name: movie-api
+    ports:
+      - "3009:3000"
+    volumes:
+      # workdirectory
+      - "../:/app"
+      # docker compatibility
+      - "//var/run/docker.sock:/var/run/docker.sock"
+      # ssh keys copied into the devcontainer
+      - ~/.ssh:/root/.ssh:ro
+    working_dir: /app
+    stdin_open: true
+    tty: true
+  movie-database:
+    image: mongo:6.0.2
+    container_name: movie-database
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=1q2w3e4r5t6y
+      - MONGO_INITDB_DATABASE=movie-db
+    volumes:
+      - "mongo_data:/data/db"
+    ports:
+      - "27019:27017"
+    expose:
+      - "27017"
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+
+networks:
+  default:
+    external: true
+    name: belfort

@@ -1,0 +1,15 @@
+{
+	"folders": [
+			{
+					"path": "..",
+					"name": "movie-api"
+			}
+	],
+	"settings": {
+			"debug.toolBarLocation": "docked",
+			"typescript.suggest.paths": false,
+			"javascript.suggest.paths": false,
+			"workbench.colorTheme": "Atom One Dark",
+			"workbench.iconTheme": "material-icon-theme"
+	},
+}
